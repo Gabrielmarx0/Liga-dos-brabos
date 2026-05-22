@@ -1,16 +1,96 @@
-# React + Vite
+# Liga dos Brabos
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação web para organizar campeonatos entre amigos, com foco em praticidade: cadastro de times/jogadores, geração automática de jogos em pontos corridos, tabela em tempo real e final opcional.
 
-Currently, two official plugins are available:
+## Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Cadastro de jogadores/times
+- Evita nomes duplicados
+- Geração automática de confrontos (round-robin)
+- Opção de turno único ou ida e volta
+- Lançamento de placares por partida
+- Tabela de classificação automática (P, J, V, E, D, GP, GC, SG)
+- Final opcional entre 1º e 2º colocados
+- Persistência local dos dados com `localStorage`
 
-## React Compiler
+## Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19
+- Vite 7
+- JavaScript (ESM)
+- CSS
 
-## Expanding the ESLint configuration
+## Como rodar localmente
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 1. Instalar dependências
+
+```bash
+npm install
+```
+
+### 2. Ambiente de desenvolvimento
+
+```bash
+npm run dev
+```
+
+### 3. Build de produção
+
+```bash
+npm run build
+```
+
+### 4. Preview local do build
+
+```bash
+npm run preview
+```
+
+## Scripts disponíveis
+
+- `npm run dev` -> inicia servidor de desenvolvimento
+- `npm run build` -> gera build de produção em `dist/`
+- `npm run preview` -> serve localmente a build de produção
+- `npm run lint` -> executa lint do projeto
+
+## Estrutura do projeto
+
+```txt
+.
+├─ public/
+│  ├─ _headers
+│  └─ vite.svg
+├─ src/
+│  ├─ assets/
+│  ├─ utils/
+│  │  └─ tournamentLogic.js
+│  ├─ App.jsx
+│  ├─ App.css
+│  ├─ main.jsx
+│  └─ index.css
+├─ index.html
+├─ package.json
+└─ vite.config.js
+```
+
+## Deploy (Netlify)
+
+Configuração recomendada:
+
+- Build command: `npm run build`
+- Publish directory: `dist`
+
+O projeto inclui o arquivo `public/_headers` com headers de segurança para ambiente de produção.
+
+## Segurança aplicada
+
+- `X-Frame-Options: DENY`
+- `X-Content-Type-Options: nosniff`
+- `Referrer-Policy: strict-origin-when-cross-origin`
+- `Permissions-Policy` restritiva para recursos sensíveis
+- `Content-Security-Policy` configurada no `_headers` para deploy
+
+## Observações
+
+- Os dados do campeonato são salvos no navegador do usuário (`localStorage`).
+- Limpar os dados do navegador remove o estado salvo.
