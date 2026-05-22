@@ -3,6 +3,14 @@ import './App.css';
 import { TOURNAMENT_TYPES, generateLeagueMatches, calculateStandings } from './utils/tournamentLogic';
 
 function App() {
+  const createId = () => {
+    if (globalThis.crypto?.randomUUID) {
+      return globalThis.crypto.randomUUID();
+    }
+
+    return `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+  };
+
   const loadState = (key, defaultValue) => {
     try {
       const saved = localStorage.getItem('liga-dos-brabos');
@@ -64,9 +72,14 @@ function App() {
       if (players.some(p => p.name.toLowerCase() === trimmedName.toLowerCase())) {
         return alert('Já existe um jogador/time com este nome!');
       }
-      setPlayers([...players, { id: crypto.randomUUID(), name: trimmedName }]);
+      setPlayers([...players, { id: createId(), name: trimmedName }]);
       setPlayerName('');
     }
+  };
+
+  const handleAddPlayerSubmit = (e) => {
+    e.preventDefault();
+    addPlayer();
   };
 
   const startTournament = () => {
@@ -92,7 +105,7 @@ function App() {
     const standings = calculateStandings(players, matches.filter(m => !m.isFinal));
     if (standings.length >= 2) {
       const finalMatch = {
-        id: `final-${crypto.randomUUID()}`,
+        id: `final-${createId()}`,
         round: 'Final',
         home: standings[0].name,
         away: standings[1].name,
@@ -130,17 +143,16 @@ function App() {
       {view === 'setup' && (
         <section className="glass setup-box">
           <h2>Novo Campeonato</h2>
-          <div className="input-group">
+          <form className="input-group" onSubmit={handleAddPlayerSubmit}>
             <input
               type="text"
               placeholder="Nome do Jogador/Time"
               value={playerName}
               maxLength={30}
               onChange={(e) => setPlayerName(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && addPlayer()}
             />
-            <button className="btn-primary" onClick={addPlayer}>Adicionar</button>
-          </div>
+            <button type="submit" className="btn-primary">Adicionar</button>
+          </form>
 
           <div className="player-list">
             {players.map(p => (

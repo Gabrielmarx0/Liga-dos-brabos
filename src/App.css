@@ -2,6 +2,7 @@
   max-width: 1000px;
   margin: 0 auto;
   padding: 40px 20px;
+  width: 100%;
 }
 
 header {
@@ -51,10 +52,12 @@ h2 {
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 .input-group input {
   flex: 1;
+  min-width: 220px;
 }
 
 .player-list {
@@ -73,6 +76,8 @@ h2 {
   align-items: center;
   gap: 8px;
   animation: fadeIn 0.3s ease;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
 .player-tag button {
@@ -88,7 +93,7 @@ h2 {
 
 .matches-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
   margin-top: 30px;
 }
@@ -130,6 +135,8 @@ h2 {
 .team span {
   font-weight: 600;
   font-size: 1.1rem;
+  text-align: center;
+  overflow-wrap: anywhere;
 }
 
 .team input {
@@ -150,6 +157,8 @@ h2 {
 .nav-controls {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
   margin-bottom: 20px;
 }
 
@@ -182,6 +191,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  min-width: 640px;
 }
 
 th,
@@ -303,4 +313,137 @@ input::-webkit-inner-spin-button {
   0% { transform: scale(1); }
   50% { transform: scale(1.05); }
   100% { transform: scale(1); }
+}
+
+@media (max-width: 900px) {
+  .container {
+    padding: 28px 14px;
+  }
+
+  h1 {
+    font-size: 2.25rem;
+  }
+
+  .setup-box,
+  .final-view,
+  .standings-view {
+    padding: 24px;
+  }
+
+  .final-title {
+    font-size: 2rem;
+    margin-bottom: 24px;
+  }
+
+  .final-card {
+    padding: 24px;
+  }
+
+  .champion-announcement {
+    font-size: 1.5rem;
+    margin-top: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 20px 10px 28px;
+  }
+
+  header {
+    margin-bottom: 28px;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  .setup-box,
+  .standings-view,
+  .final-view {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .input-group {
+    flex-direction: column;
+  }
+
+  .input-group input,
+  .input-group button,
+  .nav-controls button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .matches-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .match-card {
+    padding: 14px;
+  }
+
+  .match-teams {
+    gap: 8px;
+  }
+
+  .team span {
+    font-size: 0.95rem;
+  }
+
+  .team input {
+    width: 54px;
+    font-size: 1.2rem;
+  }
+
+  .round-badge {
+    font-size: 0.62rem;
+    padding: 4px 8px;
+  }
+
+  .nav-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  th,
+  td {
+    padding: 10px 8px;
+    font-size: 0.85rem;
+  }
+
+  .points {
+    font-size: 1rem;
+  }
+
+  .final-title {
+    font-size: 1.35rem;
+    margin-bottom: 16px;
+  }
+
+  .final-card {
+    padding: 14px;
+  }
+
+  .final-teams .team-name {
+    font-size: 1.05rem;
+  }
+
+  .final-score-input {
+    width: 62px !important;
+    height: 56px;
+    font-size: 2rem !important;
+    margin-top: 8px;
+  }
+
+  .final-vs {
+    font-size: 1.25rem;
+  }
+
+  .champion-announcement {
+    margin-top: 16px;
+    font-size: 1.05rem;
+  }
 }
