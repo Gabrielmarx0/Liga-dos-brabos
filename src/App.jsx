@@ -40,7 +40,9 @@ function App() {
           return val;
         }
       }
-    } catch (e) {}
+    } catch {
+      return defaultValue;
+    }
     return defaultValue;
   };
 
@@ -52,10 +54,12 @@ function App() {
         if (data.matches?.some(m => m.isFinal)) return 'final';
         if (data.matches?.length > 0) return 'tournament';
       }
-    } catch (e) {}
+    } catch {
+      return 'setup';
+    }
     return 'setup';
   });
-  const [tournamentType, setTournamentType] = useState(() => loadState('type', TOURNAMENT_TYPES.LEAGUE));
+  const [tournamentType] = useState(() => loadState('type', TOURNAMENT_TYPES.LEAGUE));
   const [hasFinal, setHasFinal] = useState(() => loadState('hasFinal', false));
   const [isDoubleRound, setIsDoubleRound] = useState(() => loadState('isDoubleRound', false));
   const [playerName, setPlayerName] = useState('');
